@@ -8,23 +8,50 @@
 
 import UIKit
 
+struct PreviewViewControllerViewModel {
+    let item: Item
+    
+    var image: UIImage {
+        return item.image
+    }
+    
+    var title: String {
+        return item.title
+    }
+}
+
 class PreviewViewController: UIViewController {
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var previewImageView: UIImageView!
+
+    var viewModel: PreviewViewControllerViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .green
+        
+        titleLabel.text = viewModel.title
+        previewImageView.image = viewModel.image
     }
-    
 
-    /*
-    // MARK: - Navigation
+    override var previewActionItems: [UIPreviewActionItem] {
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        let facebook = UIPreviewAction(title: "Facebook", style: .default) { (action, viewController) in
+            print("Facebook")
+        }
+        
+        let insta = UIPreviewAction(title: "Instagram", style: .default) { (action, viewController) in
+            print("Instagram")
+        }
+        
+        let share = UIPreviewActionGroup(title: "Share photo!", style: .default, actions: [facebook, insta])
+        
+        let care = UIPreviewAction(title: "Care", style: .default) { (action, viewController) in
+            print("Care")
+        }
+        
+        return [share, care]
+        
     }
-    */
-
 }
